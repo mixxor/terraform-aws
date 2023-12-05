@@ -270,3 +270,4 @@ resource "aws_eip_association" "wordpress_ip_assoc" {
 output "public_ip" {
   value = aws_eip_association.wordpress_ip_assoc.public_ip
 }
+

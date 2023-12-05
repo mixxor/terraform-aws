@@ -74,6 +74,13 @@ resource "aws_s3_object" "mein_object" {
   content_type = "text/html" 
 }
 
+# output S3 Bucket URL
+
+output "s3_bucket_url" {
+  description = "The URL of the S3 bucket"
+  value       = aws_s3_bucket.static_site.website_domain
+}
+
 
 
 
