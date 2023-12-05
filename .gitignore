@@ -1,0 +1,11 @@
+mykey.pub
+mykey
+terraform.lock.hcl
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/*
+*.tfstate
+.DS_Store
+/.terraform/
+**/.terraform.**
