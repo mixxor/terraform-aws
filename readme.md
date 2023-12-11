@@ -30,7 +30,6 @@ ssh -i mykey ubuntu@PUBLIC-IP
 ```
 
 ## Viewing Cloud-Init Output Log in EC2
-
 To check the initialization logs of your EC2 instance, run:
 
 ```sh
@@ -56,3 +55,8 @@ sudo kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot
 ```
 
 This command uses the `nicolaka/netshoot` image to run a temporary shell for troubleshooting or quick commands execution within the cluster.
+
+
+## Gitops Wordpress
+https://github.com/mixxor/gitops-wordpress
+

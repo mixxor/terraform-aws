@@ -3,9 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "static_site" {
-  bucket = "static-site-mad-summit"
-
-  // Weitere Konfigurationen nach Bedarf...
+  bucket = "static-site-mad-summit-2023"
 }
 
 resource "aws_s3_bucket_public_access_block" "static_site_public_access" {
@@ -71,7 +69,7 @@ resource "aws_s3_object" "mein_object" {
    key    = "index.html"               // Der Schlüsselname im S3-Bucket
    source = "index1.html"        // Der lokale Pfad zur Datei, die hochgeladen werden soll
    acl    = "public-read-write"                      // Setzt die ACL für das Objekt, um es öffentlich lesbar zu machen
-  content_type = "text/html" 
+   content_type = "text/html" 
 }
 
 # output S3 Bucket URL
@@ -85,48 +83,48 @@ output "s3_bucket_url" {
 
 
 
-# resource "aws_cloudfront_distribution" "s3_distribution" {
-#   origin {
-#     domain_name = aws_s3_bucket.static_site.bucket_regional_domain_name
-#     origin_id   = "S3-${aws_s3_bucket.static_site.id}"
-#   }
+resource "aws_cloudfront_distribution" "s3_distribution" {
+  origin {
+    domain_name = aws_s3_bucket.static_site.bucket_regional_domain_name
+    origin_id   = "S3-${aws_s3_bucket.static_site.id}"
+  }
 
-#   enabled             = true
-#   default_root_object = "index.html"
+  enabled             = true
+  default_root_object = "index.html"
 
-#   default_cache_behavior {
-#     allowed_methods  = ["GET", "HEAD"]
-#     cached_methods   = ["GET", "HEAD"]
-#     target_origin_id = "S3-${aws_s3_bucket.static_site.id}"
+  default_cache_behavior {
+    allowed_methods  = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "S3-${aws_s3_bucket.static_site.id}"
 
-#     forwarded_values {
-#       query_string = false
+    forwarded_values {
+      query_string = false
 
-#       cookies {
-#         forward = "none"
-#       }
-#     }
+      cookies {
+        forward = "none"
+      }
+    }
 
-#     viewer_protocol_policy = "redirect-to-https"
-#     min_ttl                = 0
-#     default_ttl            = 3600
-#     max_ttl                = 86400
-#   }
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
+  }
 
-#   price_class = "PriceClass_100"
+  price_class = "PriceClass_100"
 
-#   restrictions {
-#     geo_restriction {
-#       restriction_type = "none"
-#     }
-#   }
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
 
-#   viewer_certificate {
-#     cloudfront_default_certificate = true
-#   }
-# }
+  viewer_certificate {
+    cloudfront_default_certificate = true
+  }
+}
 
-# output "cloudfront_adress" {
-#   description = "Cloudfront URL"
-#   value = aws_cloudfront_distribution.s3_distribution.domain_name
-# }
+output "cloudfront_adress" {
+  description = "Cloudfront URL"
+  value = aws_cloudfront_distribution.s3_distribution.domain_name
+}

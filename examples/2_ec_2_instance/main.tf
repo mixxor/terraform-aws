@@ -103,3 +103,14 @@ resource "aws_instance" "example" {
     }
 }
 
+# Your existing instance configuration
+resource "aws_instance" "example-2" {
+    ami = "ami-06dd92ecc74fdfb36"
+    instance_type = "t2.micro"
+    subnet_id = aws_subnet.example_subnet.id
+    key_name               = aws_key_pair.example_key_pair.key_name
+    vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+    tags = {
+        Name = "terraform-example-2"
+    }
+}
